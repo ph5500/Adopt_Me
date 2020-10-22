@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 
 const useDropdown = (label, defaultState, options) => {
-  const [state, updateState] = useState(defaultState);
-  const id = `use-dropdown-${label.replace(" ", "").toLowerCase()}`;
+  const [state, setState] = useState(defaultState)
+  const id = `use-dropdown-${label.replace(' ', '').toLowerCase()}`
+
   const Dropdown = () => (
     <label htmlFor={id}>
       {label}
       <select
         id={id}
         value={state}
-        onChange={e => updateState(e.target.value)}
-        onBlur={e => updateState(e.target.value)}
-        disabled={!options.length}
+        onChange={e => setState(e.target.value)}
+        onBlur={e => setState(e.target.value)}
+        disable={options.length === 0}
       >
-        <option />
+        <option>All</option>
         {options.map(item => (
           <option key={item} value={item}>
             {item}
@@ -21,8 +22,9 @@ const useDropdown = (label, defaultState, options) => {
         ))}
       </select>
     </label>
-  );
-  return [state, Dropdown, updateState];
-};
+  )
 
-export default useDropdown;
+  return [state, Dropdown, setState]
+}
+
+export default useDropdown
